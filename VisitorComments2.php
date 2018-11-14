@@ -5,9 +5,9 @@
 <head>
 	<!--
 		Author: Conner Duncan
-		Date: 10.02.18
+		Date: 10.11.18
 		
-		file: VisitorComments.php
+		file: VisitorComments2.php
 		
 		key:
 			# means note
@@ -39,36 +39,47 @@
 				$saveString .= date('r') . "\n";
 				$saveString .= stripslashes($_POST['comment']) . "\n";
 				
-				//collects time info
+				//collects time info and extracts what it needs
 				echo "\$saveString: $saveString<br />"; #debug
 				$currentTime = microtime();
-				//extracts needed info
 				echo "\$currentTime: $currentTime<br />\n"; #debug
 				$timeArray = explode(" ", $currentTime);
 				echo var_dump($timeArray) . "<br />";
 				$timeStamp = (float)$timeArray[1] + (float)$timeArray[0];
 				echo "\$timeStamp: $timeStamp<br />";
-				//creates timestamped file path
 				$saveFileName = "$dir/comment.$timeStamp.txt";
 				echo "\$saveFileName: $saveFileName<br />";
-				//creates file with info inside. Handles if unsuccessful
-				if (file_put_contents($saveFileName, $saveString) > 0) {
-					echo "File \"" . htmlentities($saveFileName). "\" successfully saved.<br />\n";
-					
+				//Opens file under a file handle
+				$fileHandle = fopen($saveFileName, "wb"); //creates a new file if it doesn't exist. Returns false if there is an error
+				#W specifies that clears the content of the file if it already existed, along with other things
+				if ($fileHandle === false){
+					echo "There was an error creating \"" . htmlentities($saveFileName). "\".<br />\n";
+				}else {
+					//locks file (like a temporary permission)
+					if (flock($fileHandle, LOCK_EX)) {
+						//Write to file attempt
+						if (fwrite($fileHandle, $saveString) > 0) {
+							echo "Successfully wrote to \"". htmlentities($saveFileName) . "\".<br />\n";
+						}else {
+							echo "There was an error writing to \"" . htmlentities($saveFileName). "\".<br />\n";
+						}
+						fclose($fileHandle);	
+					}
+					else {
+						echo "There was an error locking file \"" . htmlentities($saveFileName)."\".<br />\n";
+					}
+				fclose($fileHandle);	
 				}
-				else {
-					echo "There was an error writing \"" . htmlentities($saveFileName). "\".<br />\n";
-				}
+				
 			}
 		}
 	}else {
-		//makes directory if needed. Gives proper permisions.
 		mkdir($dir);
 		chmod($dir, 0767);
 	}
 	?>
 		<h2>Visitor Comments</h2>
-		<form action="VisitorComments.php" method="post">
+		<form action="VisitorComments2.php" method="post">
 			<label for="name">Your Name:</label>
 			<input type="text" name="name" />
 			<br />

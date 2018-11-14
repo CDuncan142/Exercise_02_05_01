@@ -1,0 +1,158 @@
+/*
+		Author: Conner Duncan
+		Date: 10.16.18
+		
+		file: TheGame.css
+		
+		key:
+			# means note
+			// means documentation
+*/
+
+
+/*html & background styles*/
+
+html {
+	display: block;
+	background-color: antiquewhite;
+	width: 100%;
+	font-size: 1rem;
+	padding: 0;
+	margin: 0;
+}
+
+/*Body Styles*/
+
+body {
+	display: block;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 0px;
+	padding-bottom: 10px;
+	background-color: wheat;
+	box-shadow: 0 0 30px #b1a48d;
+}
+
+/*Page Header Styles*/
+
+div.pageHeader {
+	display: block;
+	background-color: #fdda9a;
+	border: 5px double antiquewhite;
+	border-top-width: 0px;
+	padding: 0;
+	margin: 0;
+	padding-top: 30px;
+	margin-bottom: 80px;
+	box-shadow: 0 5 0 gray;
+}
+div.pageHeader h2 {
+	display: block;
+	font-size: 5rem;
+	padding: 0;
+	color: white;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: fantasy;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+/*Form Styles*/
+
+form#registerForm {
+	display: block;
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	border-width: 0;
+	padding: 0;
+	font-size: 1rem;
+	/*	display: flex;*/
+	/*	flex-direction: column;*/
+}
+div.formRow {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flex;
+	flex-direction: row nowrap;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	/*	justify-content: space-around;*/
+}
+
+/*div.formGroup {}*/
+
+form#registerForm label,
+form#registerForm input {
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flex;
+	font-size: inherit;
+	color: dimgray;
+	flex: 1 1 1;
+	-webkit-flex: 1 1 1;
+	-ms-flex: 1 1 1;
+	margin-bottom: 7px;
+}
+form#registerForm input {
+	display: block;
+	border-style: solid;
+	border-color: dimgray;
+	width: 20%;
+	margin-right: 20%;
+}
+form#registerForm label {
+	display: block;
+	width: 20%;
+	padding-left: 3%;
+	/*	margin-right: 10%;*/
+}
+
+/*
+label#commentLabel {
+		width: ;
+		margin-right: 10px;
+	
+}
+*/
+
+#commentInput {
+	display: block;
+	width: 80%;
+	padding: 5px;
+	margin-top: 20px;
+	margin-bottom: 8px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 3px double gray;
+}
+#commentLabel {
+	margin-top: 20px;
+}
+
+/*Player Board Styles*/
+
+div.playerBoard {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+	text-align: center;
+}
+
+/*Footer Styles*/
+
+div.footer {
+	display: block;
+	width: 100%;
+	height: 20px;
+	background-color: palegoldenrod;
+}

@@ -13,7 +13,7 @@
 			# means note
 			// means documentation
 		-->
-	<title>Visitor Comments</title>
+	<title>Visitor Feedback</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1.0">
 	<script src="modernizr.custom.65897.js"></script>
@@ -35,6 +35,15 @@
 			echo "<pre>\n";
 				$comment = file_get_contents($dir . "/" . $fileName);
 				echo $comment;
+				$comment = readfile($dir . "/" . $fileName);
+				echo "From: " .htmlentities($comment[0])."<br />\n";
+				echo "Email Adddress: " .htmlentities($comment[1])."<br />\n";
+				echo "Date: " .htmlentities($comment[2])."<br />\n";
+				$commentLines = count($comment);
+				for($i = 3; $i < $commentLines; $i++) {
+					echo htmlentities($comment[$i]). "<br />\n";
+					
+				}
 			echo "</pre>\n";
 			echo "<hr>\n"
 			}

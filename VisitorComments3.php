@@ -5,9 +5,9 @@
 <head>
 	<!--
 		Author: Conner Duncan
-		Date: 10.02.18
+		Date: 10.12.18
 		
-		file: VisitorComments.php
+		file: VisitorComments3.php
 		
 		key:
 			# means note
@@ -32,43 +32,51 @@
 				echo "Unknown visitor\n";
 			}
 			else {
-				//save info to a string delimited by new lines
-				//+ formats data
 				$saveString = stripslashes($_POST['name']) . "\n";
 				$saveString .= stripslashes($_POST['email']) . "\n";
 				$saveString .= date('r') . "\n";
 				$saveString .= stripslashes($_POST['comment']) . "\n";
 				
-				//collects time info
 				echo "\$saveString: $saveString<br />"; #debug
 				$currentTime = microtime();
-				//extracts needed info
 				echo "\$currentTime: $currentTime<br />\n"; #debug
 				$timeArray = explode(" ", $currentTime);
 				echo var_dump($timeArray) . "<br />";
 				$timeStamp = (float)$timeArray[1] + (float)$timeArray[0];
 				echo "\$timeStamp: $timeStamp<br />";
-				//creates timestamped file path
 				$saveFileName = "$dir/comment.$timeStamp.txt";
 				echo "\$saveFileName: $saveFileName<br />";
-				//creates file with info inside. Handles if unsuccessful
+				$fileHandle = fopen($saveFileName, "wb");
+				if ($fileHandle === false){
+					echo "There was an error creating \"" . htmlentities($saveFileName). "\".<br />\n";
+				}else {
+					//Write to file attempt
+					if (fwrite($fileHandle, $saveString) > 0) {
+						echo "Successfully wrote to \"". htmlentities($saveFileName) . "\".<br />\n";
+					}else {
+						echo "There was an error writing to \"" . htmlentities($saveFileName). "\".<br />\n";
+					}
+					fclose($fileHandle);
+				}
+				
+				
+				
 				if (file_put_contents($saveFileName, $saveString) > 0) {
 					echo "File \"" . htmlentities($saveFileName). "\" successfully saved.<br />\n";
 					
 				}
 				else {
-					echo "There was an error writing \"" . htmlentities($saveFileName). "\".<br />\n";
+					
 				}
 			}
 		}
 	}else {
-		//makes directory if needed. Gives proper permisions.
 		mkdir($dir);
 		chmod($dir, 0767);
 	}
 	?>
 		<h2>Visitor Comments</h2>
-		<form action="VisitorComments.php" method="post">
+		<form action="VisitorComments3.php" method="post">
 			<label for="name">Your Name:</label>
 			<input type="text" name="name" />
 			<br />
